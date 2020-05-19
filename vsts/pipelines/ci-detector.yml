@@ -1,0 +1,34 @@
+resources:
+- repo: self
+
+variables:
+- group: Oryx
+
+stages:
+  - stage: Build
+    displayName: Build Stage
+    jobs:
+    - job: Job_SignBinaries
+      displayName: Sign Detector Binaries and NuGet packages
+      pool:
+        name: VSEng-MicroBuildVS2017
+        demands:
+        - msbuild
+        - visualstudio
+      variables:
+        SignType: 'test'
+        skipComponentGovernanceDetection: true
+      steps:
+      - template: templates/_signBinaryDetector.yml
+
+  - stage: Release
+    displayName: Release Stage
+    dependsOn: Build
+    condition: >
+      and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'),
+      startsWith(variables['Build.SourceBranch'],'refs/heads/patch/' )))
+
+    jobs:
+    - template: templates/_releaseJobTemplate.yml
+
+trigger: none
