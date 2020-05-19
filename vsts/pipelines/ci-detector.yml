@@ -1,0 +1,69 @@
+resources:
+- repo: self
+
+variables:
+- group: Oryx
+
+stages:
+  - stage: Build
+    displayName: Build Stage
+    jobs:
+    - job: Job_SignBinaries
+      displayName: Sign Detector Binaries and NuGet packages
+      pool:
+        name: VSEng-MicroBuildVS2017
+        demands:
+        - msbuild
+        - visualstudio
+      variables:
+        SignType: 'test'
+        skipComponentGovernanceDetection: true
+      steps:
+      - template: templates/_signBinaryDetector.yml
+    - job: Job_BuildAndTestDetector
+      displayName: Build and test detector
+      pool:
+        name: OryxLinux
+      steps:
+      - template: templates/_buildTemplateDetector.yml
+      
+  - stage: Release
+    displayName: Release Stage
+    dependsOn: Build
+    condition: >
+      and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'),
+      startsWith(variables['Build.SourceBranch'],'refs/heads/kichalla/' )))
+    jobs:
+    - job: Release_GitHub
+      displayName: Create GitHub release
+      pool:
+        name: OryxLinux
+      variables:
+        skipComponentGovernanceDetection: true
+    
+      steps:
+      - checkout: self
+        clean: true
+
+      - task: DownloadPipelineArtifact@2
+        displayName: 'Download artifacts to publish to release'
+        inputs:
+          artifactName: 'detector_signed'
+          path: $(Build.ArtifactStagingDirectory)/detector_signed
+    
+      - bash: |
+          . build/__detectorNugetPackagesVersions.sh
+          echo "Setting release name to '$releaseName'..."
+          echo "##vso[task.setvariable variable=RELEASE_NAME;]$VERSION"
+        displayName: 'Set relase name environment variable'
+
+      - task: GitHubRelease@0
+        displayName: 'GitHub release (create)'
+        inputs:
+          gitHubConnection: 'Oryx-GitHub'
+          repositoryName: kichalla/Oryx-1
+          tagSource: manual
+          tag: '$(RELEASE_NAME)'
+          assets: $(Build.ArtifactStagingDirectory)/detector_signed/packages/*.nupkg
+
+trigger: none

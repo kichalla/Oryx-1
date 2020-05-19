@@ -1,0 +1,6 @@
+trigger:
+- master
+- patch/*
+
+steps:
+- template: templates/_buildTemplateDetector.yml
