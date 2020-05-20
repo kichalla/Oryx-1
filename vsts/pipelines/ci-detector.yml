@@ -52,7 +52,7 @@ stages:
         displayName: 'GitHub release (create)'
         inputs:
           gitHubConnection: 'Oryx-GitHub'
-          repositoryName: Microsoft/Oryx
+          repositoryName: kichalla/Oryx-1
           tagSource: manual
           tag: '$(RELEASE_TAG_NAME)'
           assets: $(Build.SourcesDirectory)/artifacts/Detector/*.nupkg

@@ -19,5 +19,12 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
+  <Import Project="$(MSBuildThisFileDirectory)\..\CommonFiles\detectorNugetPackagesVersions.props" />
   <Import Project="$(MSBuildThisFileDirectory)\..\CommonFiles\General.targets" />
+
+  <PropertyGroup>
+    <AssemblyVersion>$(VERSION_PREFIX)</AssemblyVersion>
+    <VersionPrefix>$(VERSION_PREFIX)</VersionPrefix>
+    <VersionSuffix Condition=" '$(IS_PRERELEASE)' == 'true' ">pre-$(BUILD_NUMBER)</VersionSuffix>
+  </PropertyGroup>
 </Project>
