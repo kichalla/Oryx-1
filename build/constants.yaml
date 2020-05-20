@@ -170,11 +170,19 @@
     - type: shell
       directory: build
       file-name-prefix: __
+- name: detector-nuget-packages-versions-msbuild
+  constants:
+    version-prefix: 1.0.0
+    version-suffix: '"pre-$(BUILD_BUILDNUMBER)"'
+    version: '"$(VERSION_PREFIX)_$(VERSION_SUFFIX)"'
+  outputs:
+    - type: msbuild
+      directory: src/CommonFiles
 - name: detector-nuget-packages-versions
   constants:
     version-prefix: 1.0.0
-    version-suffix-msbuild: pre-$(BUILD_BUILDNUMBER)
-    version-suffix-shell: pre-$BUILD_BUILDNUMBER
+    version-suffix: '"pre-$BUILD_BUILDNUMBER"'
+    version: '"$VERSION_PREFIX_$VERSION_SUFFIX"'
   outputs:
     - type: shell
       directory: build
@@ -182,5 +190,3 @@
     - type: powershell
       directory: build
       file-name-prefix: __
-    - type: msbuild
-      directory: src/CommonFiles

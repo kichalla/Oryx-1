@@ -8,6 +8,7 @@ function DeleteItem($pathToRemove) {
         Remove-Item -Recurse -Force -Path "$pathToRemove"
     }
 }
+
 $repoRoot="$PSScriptRoot\..\.."
 $artifactsPackagesDir="$repoRoot\artifacts\packages"
 . $repoRoot\build\__detectorNugetPackagesVersions.ps1

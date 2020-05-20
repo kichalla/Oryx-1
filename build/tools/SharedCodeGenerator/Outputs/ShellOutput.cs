@@ -39,7 +39,8 @@ namespace Microsoft.Oryx.SharedCodeGenerator.Outputs
             foreach (var constant in _collection.Constants)
             {
                 string name = constant.Key.Replace(ConstantCollection.NameSeparator[0], '_').ToUpper();
-                body.Append($"{name}='{constant.Value}'{NewLine}");
+                var value = constant.Value.WrapValueInQuotes();
+                body.Append($"{name}={value}{NewLine}");
             }
 
             return body.ToString();
