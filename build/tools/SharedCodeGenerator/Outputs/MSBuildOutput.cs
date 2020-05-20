@@ -39,7 +39,7 @@ namespace Microsoft.Oryx.SharedCodeGenerator.Outputs
             foreach (var constant in _collection.Constants)
             {
                 var name = constant.Key.Replace(ConstantCollection.NameSeparator[0], '_').ToUpper();
-                body.AppendLine($"<{name}>{constant.Value}</{name}>");
+                body.AppendLine($"\t\t<{name}>{constant.Value}</{name}>");
             }
 
             body.AppendLine("\t</PropertyGroup>");

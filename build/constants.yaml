@@ -173,11 +173,9 @@
 - name: detector-nuget-packages-versions
   constants:
     version-prefix: 1.0.0
-    is-prerelease: true
+    version-suffix-msbuild: pre-$(BUILD_BUILDNUMBER)
+    version-suffix-shell: pre-$BUILD_BUILDNUMBER
   outputs:
-    - type: csharp
-      directory: src/BuildScriptGenerator/Hugo
-      namespace: Microsoft.Oryx.BuildScriptGenerator.Hugo
     - type: shell
       directory: build
       file-name-prefix: __

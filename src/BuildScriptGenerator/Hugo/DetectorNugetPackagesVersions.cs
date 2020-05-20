@@ -6,5 +6,6 @@ namespace Microsoft.Oryx.BuildScriptGenerator.Hugo
     {
         public const string VersionPrefix = "1.0.0";
         public const string IsPrerelease = "true";
+        public const string VersionSuffix = "pre-$(BUILD_BUILDNUMBER)";
     }
 }
