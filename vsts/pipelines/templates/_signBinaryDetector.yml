@@ -47,12 +47,6 @@ steps:
   inputs:
     filePath: 'vsts\scripts\createNuGetPackages.ps1'
 
-- task: VSBuild@1
-  displayName: 'Sign NuGet packages'
-  inputs:
-    solution: 'vsts/nugetpackages.signproj'
-    msbuildArgs: '/t:SignFiles /p:MicroBuild_SigningEnabled=true'
-
 - powershell: |
     Copy-Item -Path artifacts\packages -Destination $(Build.ArtifactStagingDirectory)\packages -Recurse
   displayName: 'Copying nuget packages to artifact staging directory'
