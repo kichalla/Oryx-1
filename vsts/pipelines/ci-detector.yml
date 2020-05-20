@@ -50,10 +50,7 @@ stages:
     
       - bash: |
           . build/__detectorNugetPackagesVersions.sh
-          releaseName="$VERSION_PREFIX"
-          if [ "$IS_PRERELEASE" == "true" ]; then
-            releaseName="$releaseName-pre-$BUILD_BUILDNUMBER"
-          fi
+          releaseName="$VERSION_PREFIX-$VERSION_SUFFIX_SHELL"
           echo "Setting release name to '$releaseName'..."
           echo "##vso[task.setvariable variable=RELEASE_NAME;]$releaseName"
         displayName: 'Set relase name environment variable'

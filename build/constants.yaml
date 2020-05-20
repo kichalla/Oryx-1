@@ -179,5 +179,8 @@
     - type: shell
       directory: build
       file-name-prefix: __
+    - type: powershell
+      directory: build
+      file-name-prefix: __
     - type: msbuild
       directory: src/CommonFiles

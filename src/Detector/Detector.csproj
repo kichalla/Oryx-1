@@ -25,6 +25,6 @@
   <PropertyGroup>
     <AssemblyVersion>$(VERSION_PREFIX)</AssemblyVersion>
     <VersionPrefix>$(VERSION_PREFIX)</VersionPrefix>
-    <VersionSuffix Condition=" '$(IS_PRERELEASE)' == 'true' ">pre-$(BUILD_NUMBER)</VersionSuffix>
+    <VersionSuffix>$(VERSION_SUFFIX_MSBUILD)</VersionSuffix>
   </PropertyGroup>
 </Project>
