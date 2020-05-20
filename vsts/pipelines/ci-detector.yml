@@ -26,7 +26,7 @@ stages:
         name: OryxLinux
       steps:
       - template: templates/_buildTemplateDetector.yml
-
+      
   - stage: Release
     displayName: Release Stage
     dependsOn: Build
@@ -48,13 +48,23 @@ stages:
           artifactName: 'Detector'
           path: $(Build.SourcesDirectory)/artifacts
     
+      - bash: |
+          . build/__detectorNugetPackagesVersions.sh
+          releaseName="$VERSION_PREFIX"
+          if [ "$IS_PRERELEASE" == "true" ]; then
+            releaseName="$releaseName-pre-$BUILD_BUILDNUMBER"
+          fi
+          echo "Setting release name to '$releaseName'..."
+          echo "##vso[task.setvariable variable=RELEASE_NAME;]$releaseName"
+        displayName: 'Set relase name environment variable'
+
       - task: GitHubRelease@0
         displayName: 'GitHub release (create)'
         inputs:
           gitHubConnection: 'Oryx-GitHub'
           repositoryName: kichalla/Oryx-1
           tagSource: manual
-          tag: '$(RELEASE_TAG_NAME)'
+          tag: '$(RELEASE_NAME)'
           assets: $(Build.SourcesDirectory)/artifacts/Detector/*.nupkg
 
 trigger: none
