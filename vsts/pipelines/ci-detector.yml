@@ -61,6 +61,6 @@ stages:
           repositoryName: kichalla/Oryx-1
           tagSource: manual
           tag: '$(RELEASE_NAME)'
-          assets: $(Build.SourcesDirectory)/artifacts/detector_signed/*.nupkg
+          assets: $(Build.SourcesDirectory)/artifacts/detector_signed/packages/*.nupkg
 
 trigger: none
