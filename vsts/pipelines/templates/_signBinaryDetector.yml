@@ -54,5 +54,5 @@ steps:
 - task: PublishPipelineArtifact@0
   displayName: 'Publish Pipeline Artifact'
   inputs:
-    artifactName: 'Detector'
+    artifactName: 'detector_signed'
     targetPath: '$(Build.ArtifactStagingDirectory)'
