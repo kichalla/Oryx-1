@@ -24,7 +24,7 @@ DeleteItem "$detectorName.zip"
 
 Copy-Item `
     -Path "$repoRoot\src\Detector\bin\Release\netstandard2.0\$detectorName.dll" `
-    -Destination "$buildScriptGeneratorCliName\lib\netstandard2.0\$detectorName.dll" `
+    -Destination "$detectorName\lib\netstandard2.0\$detectorName.dll" `
     -Force
 
 Compress-Archive -Path "$detectorName\*" -DestinationPath "$detectorName.zip"
