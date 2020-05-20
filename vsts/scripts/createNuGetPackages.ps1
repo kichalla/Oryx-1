@@ -8,7 +8,7 @@ function DeleteItem($pathToRemove) {
         Remove-Item -Recurse -Force -Path "$pathToRemove"
     }
 }
-$version="1.0.0-$env:BUILD_BUILDNUMBER"
+$version="1.0.0-pre-$env:BUILD_BUILDNUMBER"
 $detectorName="Microsoft.Oryx.Detector"
 $repoRoot="$PSScriptRoot\..\.."
 $artifactsPackagesDir="$repoRoot\artifacts\packages"
