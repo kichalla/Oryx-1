@@ -174,7 +174,7 @@
   constants:
     version-prefix: 1.0.0
     version-suffix: 'pre-$(BUILD_BUILDNUMBER)'
-    version: '$(VERSION_PREFIX)_$(VERSION_SUFFIX)'
+    version: '$(VERSION_PREFIX)-$(VERSION_SUFFIX)'
   outputs:
     - type: msbuild
       directory: build
@@ -183,7 +183,7 @@
   constants:
     version-prefix: 1.0.0
     version-suffix: '"pre-$BUILD_BUILDNUMBER"'
-    version: '"$VERSION_PREFIX_$VERSION_SUFFIX"'
+    version: '"$VERSION_PREFIX-$VERSION_SUFFIX"'
   outputs:
     - type: shell
       directory: build
