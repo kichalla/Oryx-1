@@ -9,7 +9,7 @@ function DeleteItem($pathToRemove) {
     }
 }
 
-ls env:
+ls variable:
 
 $repoRoot="$PSScriptRoot\..\.."
 $artifactsPackagesDir="$repoRoot\artifacts\packages"
