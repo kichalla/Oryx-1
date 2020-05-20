@@ -52,6 +52,7 @@ stages:
           . build/__detectorNugetPackagesVersions.sh
           echo "Setting release name to '$releaseName'..."
           echo "##vso[task.setvariable variable=RELEASE_NAME;]$VERSION"
+          ls -l $BUILD_SOURCESDIRECTORY/artifacts/detector_signed/packages
         displayName: 'Set relase name environment variable'
 
       - task: GitHubRelease@0
