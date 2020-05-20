@@ -9,8 +9,6 @@ function DeleteItem($pathToRemove) {
     }
 }
 
-ls variable:
-
 $repoRoot="$PSScriptRoot\..\.."
 $artifactsPackagesDir="$repoRoot\artifacts\packages"
 . $repoRoot\build\__detectorNugetPackagesVersions.ps1
