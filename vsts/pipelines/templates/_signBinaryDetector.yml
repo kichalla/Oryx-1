@@ -42,13 +42,6 @@ steps:
     dotnet build Detector.sln -c Release
   displayName: 'Build Detector.sln'
 
-- task: VSBuild@1
-  displayName: 'Sign Oryx Binaries'
-  inputs:
-    solution: 'src/Detector/Detector.signproj'
-    msbuildArgs: '/t:SignFiles /p:MicroBuild_SigningEnabled=true'
-    configuration: '$(BuildConfiguration)'
-    
 - task: PowerShell@2
   displayName: 'Re-package already generated NuGet packages with signed binaries'
   inputs:
