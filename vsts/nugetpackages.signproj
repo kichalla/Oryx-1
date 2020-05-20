@@ -3,12 +3,15 @@
   <Import Project="$(USERPROFILE)\.nuget\packages\microsoft.visualstudioeng.microbuild.core\0.4.1\build\Microsoft.VisualStudioEng.MicroBuild.Core.targets" />
 
   <PropertyGroup>
-    <OutDir>$(MSBuildThisFileDirectory)..\artifacts\packages</OutDir>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\..\build\FinalPublicKey.snk</AssemblyOriginatorKeyFile>
+    <RepoRoot>$(MSBuildThisFileDirectory)..</RepoRoot>
+    <OutDir>$(RepoRoot)\artifacts\packages</OutDir>
+    <AssemblyOriginatorKeyFile>$(RepoRoot)\build\FinalPublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
+  <Import Project="$(RepoRoot)\build\__detectorNugetPackagesVersionsMsbuild.props" />
+
   <ItemGroup>
-    <FilesToSign Include="$(OutDir)\Microsoft.Oryx.Detector.1.0.0-$(BUILD_BUILDNUMBER).nupkg;">
+    <FilesToSign Include="$(OutDir)\Microsoft.Oryx.Detector.$(VERSION).nupkg;">
       <Authenticode>NuGet</Authenticode>
     </FilesToSign>
   </ItemGroup>

@@ -42,23 +42,10 @@ steps:
     dotnet build Detector.sln -c Release
   displayName: 'Build Detector.sln'
 
-- task: VSBuild@1
-  displayName: 'Sign Oryx Binaries'
-  inputs:
-    solution: 'src/Detector/Detector.signproj'
-    msbuildArgs: '/t:SignFiles /p:MicroBuild_SigningEnabled=true'
-    configuration: '$(BuildConfiguration)'
-    
 - task: PowerShell@2
   displayName: 'Re-package already generated NuGet packages with signed binaries'
   inputs:
-    Path: 'vsts\scripts\createNuGetPackages.ps1'
-
-- task: VSBuild@1
-  displayName: 'Sign NuGet packages'
-  inputs:
-    solution: 'vsts/nugetpackages.signproj'
-    msbuildArgs: '/t:SignFiles /p:MicroBuild_SigningEnabled=true'
+    filePath: 'vsts\scripts\createNuGetPackages.ps1'
 
 - powershell: |
     Copy-Item -Path artifacts\packages -Destination $(Build.ArtifactStagingDirectory)\packages -Recurse
@@ -67,5 +54,5 @@ steps:
 - task: PublishPipelineArtifact@0
   displayName: 'Publish Pipeline Artifact'
   inputs:
-    artifactName: 'Detector'
+    artifactName: 'detector_signed'
     targetPath: '$(Build.ArtifactStagingDirectory)'

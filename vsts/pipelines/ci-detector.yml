@@ -20,15 +20,47 @@ stages:
         skipComponentGovernanceDetection: true
       steps:
       - template: templates/_signBinaryDetector.yml
-
+    - job: Job_BuildAndTestDetector
+      displayName: Build and test detector
+      pool:
+        name: OryxLinux
+      steps:
+      - template: templates/_buildTemplateDetector.yml
+      
   - stage: Release
     displayName: Release Stage
     dependsOn: Build
     condition: >
       and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'),
-      startsWith(variables['Build.SourceBranch'],'refs/heads/patch/' )))
-
+      startsWith(variables['Build.SourceBranch'],'refs/heads/kichalla/' )))
     jobs:
-    - template: templates/_releaseJobTemplate.yml
+    - job: Release_GitHub
+      displayName: Create GitHub release
+      pool:
+        name: OryxLinux
+      variables:
+        skipComponentGovernanceDetection: true
+    
+      steps:
+      - task: DownloadPipelineArtifact@2
+        displayName: 'Download artifacts to publish to release'
+        inputs:
+          artifactName: 'detector_signed'
+          path: $(Build.SourcesDirectory)/artifacts
+    
+      - bash: |
+          . build/__detectorNugetPackagesVersions.sh
+          echo "Setting release name to '$releaseName'..."
+          echo "##vso[task.setvariable variable=RELEASE_NAME;]$VERSION"
+        displayName: 'Set relase name environment variable'
+
+      - task: GitHubRelease@0
+        displayName: 'GitHub release (create)'
+        inputs:
+          gitHubConnection: 'Oryx-GitHub'
+          repositoryName: kichalla/Oryx-1
+          tagSource: manual
+          tag: '$(RELEASE_NAME)'
+          assets: $(Build.SourcesDirectory)/artifacts/packages/*.nupkg
 
 trigger: none

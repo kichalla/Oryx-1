@@ -44,7 +44,7 @@ steps:
   displayName: 'Publish build artifacts'
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
-    artifactName: 'Detector'
+    artifactName: 'detector'
   condition: true
 
 - task: mspremier.PostBuildCleanup.PostBuildCleanup-task.PostBuildCleanup@3
