@@ -19,7 +19,7 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)\..\CommonFiles\detectorNugetPackagesVersionsMsbuild.props" />
+  <Import Project="$(MSBuildThisFileDirectory)\..\..\build\__detectorNugetPackagesVersionsMsbuild.props" />
   <Import Project="$(MSBuildThisFileDirectory)\..\CommonFiles\General.targets" />
 
   <PropertyGroup>

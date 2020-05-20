@@ -14,18 +14,20 @@ namespace Microsoft.Oryx.SharedCodeGenerator.Outputs
     {
         private ConstantCollection _collection;
         private string _directory;
+        private string _fileNamePrefix;
 
         public void Initialize(ConstantCollection constantCollection, Dictionary<string, string> typeInfo)
         {
             _collection = constantCollection;
             _directory = typeInfo["directory"];
+            _fileNamePrefix = typeInfo["file-name-prefix"];
         }
 
         public string GetPath()
         {
             var name = _collection.Name.Camelize();
             name = char.ToLowerInvariant(name[0]) + name.Substring(1);
-            return Path.Combine(_directory, name + ".props");
+            return Path.Combine(_directory, _fileNamePrefix + name + ".props");
         }
 
         public string GetContent()

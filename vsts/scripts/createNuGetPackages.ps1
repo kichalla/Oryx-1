@@ -12,7 +12,6 @@ function DeleteItem($pathToRemove) {
 $repoRoot="$PSScriptRoot\..\.."
 $artifactsPackagesDir="$repoRoot\artifacts\packages"
 . $repoRoot\build\__detectorNugetPackagesVersions.ps1
-$version="$VERSION_PREFIX-$VERSION_SUFFIX_MSBUILD"
 $detectorName="Microsoft.Oryx.Detector"
 
 cd "$artifactsPackagesDir"
@@ -20,7 +19,7 @@ cd "$artifactsPackagesDir"
 # Delete any existing directory and zip file. Could have been from an earlier build.
 DeleteItem "$detectorName"
 DeleteItem "$detectorName.zip"
-Rename-Item -Path "$detectorName.$version.nupkg" -NewName "$detectorName.zip"
+Rename-Item -Path "$detectorName.$VERSION.nupkg" -NewName "$detectorName.zip"
 Expand-Archive -Path "$detectorName.zip" -DestinationPath "$detectorName"
 DeleteItem "$detectorName.zip"
 
@@ -30,5 +29,5 @@ Copy-Item `
     -Force
 
 Compress-Archive -Path "$detectorName\*" -DestinationPath "$detectorName.zip"
-Rename-Item -Path "$detectorName.zip" -NewName "$detectorName.$version.nupkg"
+Rename-Item -Path "$detectorName.zip" -NewName "$detectorName.$VERSION.nupkg"
 DeleteItem "$detectorName"
