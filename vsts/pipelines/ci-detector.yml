@@ -46,7 +46,7 @@ stages:
         displayName: 'Download artifacts to publish to release'
         inputs:
           artifactName: 'detector_signed'
-          path: $(Build.SourcesDirectory)/artifacts
+          path: $(Build.ArtifactStagingDirectory)/detector_signed
     
       - bash: |
           . build/__detectorNugetPackagesVersions.sh
@@ -61,6 +61,6 @@ stages:
           repositoryName: kichalla/Oryx-1
           tagSource: manual
           tag: '$(RELEASE_NAME)'
-          assets: $(Build.SourcesDirectory)/artifacts/packages/*.nupkg
+          assets: $(Build.ArtifactStagingDirectory)/detector_signed/packages/*.nupkg
 
 trigger: none
