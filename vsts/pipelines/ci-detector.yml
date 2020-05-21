@@ -16,23 +16,23 @@ stages:
         skipComponentGovernanceDetection: true
       steps:
       - script: |
-        if [ "$(Build.Reason)" != "Schedule" ] \
-        || [ "$(Build.Reason)" != "Manual" ]; then
-          echo "Invalid configuration."
-          echo "Build should be either manual or scheduled."
-          exit 1
-        fi
-        if [ "$(Build.DefinitionName)" != "Oryx-Detector-CI" ]; then
-          echo "Invalid configuration."
-          echo "Build definition name should be Oryx-Detector-CI."
-          exit 1
-        fi
-        if [[ "$(Build.SourceBranch)" == "refs/heads/master"* ]] \
-          || [[ "$(Build.SourceBranch)" != "refs/heads/kichalla"* ]]; then
-          echo "Invalid configuration."
-          echo 'Only 'master' and 'patch/*' branches are allowed.'
-          exit 1
-        fi
+          if [ "$(Build.Reason)" != "Schedule" ] \
+          || [ "$(Build.Reason)" != "Manual" ]; then
+            echo "Invalid configuration."
+            echo "Build should be either manual or scheduled."
+            exit 1
+          fi
+          if [ "$(Build.DefinitionName)" != "Oryx-Detector-CI" ]; then
+            echo "Invalid configuration."
+            echo "Build definition name should be Oryx-Detector-CI."
+            exit 1
+          fi
+          if [[ "$(Build.SourceBranch)" == "refs/heads/master"* ]] \
+            || [[ "$(Build.SourceBranch)" != "refs/heads/kichalla"* ]]; then
+            echo "Invalid configuration."
+            echo 'Only 'master' and 'patch/*' branches are allowed.'
+            exit 1
+          fi
       displayName: 'Validate pipeline run'
 
   - stage: Build
