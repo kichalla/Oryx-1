@@ -16,6 +16,7 @@ stages:
         skipComponentGovernanceDetection: true
       steps:
       - script: |
+          printenv
           if [ "$(Build.Reason)" != "Schedule" ] \
           || [ "$(Build.Reason)" != "Manual" ]; then
             echo "Invalid configuration."
