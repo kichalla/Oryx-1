@@ -40,7 +40,7 @@ stages:
     displayName: Build Stage
     dependsOn: ValidatePipeline
     jobs:
-    - job: Job_SignBinaries
+    - job: Job_SignBinariesAndPackages
       displayName: Sign Detector Binaries and NuGet packages
       pool:
         name: VSEng-MicroBuildVS2017
@@ -48,7 +48,6 @@ stages:
         - msbuild
         - visualstudio
       variables:
-        SignType: 'test'
         skipComponentGovernanceDetection: true
       steps:
       - template: templates/_signBinaryDetector.yml
@@ -62,9 +61,6 @@ stages:
   - stage: Release
     displayName: Release Stage
     dependsOn: Build
-    condition: >
-      and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'),
-      startsWith(variables['Build.SourceBranch'],'refs/heads/kichalla/' )))
     jobs:
     - job: Release_GitHub
       displayName: Create GitHub release
