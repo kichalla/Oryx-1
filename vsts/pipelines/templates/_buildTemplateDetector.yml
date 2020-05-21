@@ -30,7 +30,7 @@ steps:
     contents: '**/*.*'
     targetFolder: $(Build.ArtifactStagingDirectory)
     overWrite: true
-  condition: true
+  condition: succeededOrFailed()
 
 - task: PublishTestResults@2
   displayName: 'Publish test results'
@@ -38,15 +38,15 @@ steps:
     testRunner: 'xUnit'
     testResultsFiles: '$(Build.ArtifactStagingDirectory)/testResults/*.xml'
     mergeTestResults: true
-  condition: true
+  condition: succeededOrFailed()
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish build artifacts'
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: 'detector'
-  condition: true
+  condition: succeededOrFailed()
 
 - task: mspremier.PostBuildCleanup.PostBuildCleanup-task.PostBuildCleanup@3
   displayName: 'Clean Agent Directories'
-  condition: true
+  condition: succeededOrFailed()
