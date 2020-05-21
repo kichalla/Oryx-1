@@ -42,6 +42,9 @@ stages:
         skipComponentGovernanceDetection: true
     
       steps:
+      - checkout: self
+        clean: true
+
       - task: DownloadPipelineArtifact@2
         displayName: 'Download artifacts to publish to release'
         inputs:

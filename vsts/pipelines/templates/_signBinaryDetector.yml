@@ -1,4 +1,7 @@
 steps:
+- checkout: self
+  clean: true
+
 - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
   displayName: 'Component Detection - OSS Compliance'
   inputs:
