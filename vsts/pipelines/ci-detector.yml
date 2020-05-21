@@ -33,7 +33,7 @@ stages:
             echo 'Only 'master' and 'patch/*' branches are allowed.'
             exit 1
           fi
-      displayName: 'Validate pipeline run'
+        displayName: 'Validate pipeline run'
 
   - stage: Build
     displayName: Build Stage
