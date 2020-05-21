@@ -28,8 +28,8 @@ stages:
             echo "Build definition name should be Oryx-Detector-CI."
             exit 1
           fi
-          if [[ "$(Build.SourceBranch)" == "refs/heads/master"* ]] \
-          && [[ "$(Build.SourceBranch)" != "refs/heads/kichalla"* ]]; then
+          if [[ "$(Build.SourceBranch)" != "refs/heads/master" ]] \
+          && [[ "$(Build.SourceBranch)" != refs/heads/kichalla* ]]; then
             echo "Invalid configuration."
             echo 'Only 'master' and 'patch/*' branches are allowed.'
             exit 1
