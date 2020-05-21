@@ -10,7 +10,7 @@ steps:
 - task: ms-vseng.MicroBuildTasks.30666190-6959-11e5-9f96-f56098202fef.MicroBuildSigningPlugin@1
   displayName: 'Install Signing Plugin'
   inputs:
-    signType: '$(setSignTypeVariableTask.SignType)'
+    signType: 'Real'
 
 - powershell: |
     $sdkVersion="2.1.806"
